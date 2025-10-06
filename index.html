@@ -1,1 +1,1081 @@
-santos
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santos FC - Elenco 2024</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #000000 0%, #333333 100%);
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 3px solid #FFD700;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #cccccc;
+        }
+
+        .navigation {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: black;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .player-section {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin: 2rem 0;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid #333;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .player-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .player-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: black;
+            font-weight: bold;
+            border: 4px solid #333;
+        }
+
+        .player-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .player-name {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 0.5rem;
+        }
+
+        .player-position {
+            font-size: 1.3rem;
+            color: #FFA500;
+            margin-bottom: 1rem;
+        }
+
+        .player-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-card {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .detail-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .player-stats {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .stats-title {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-top: 0.5rem;
+        }
+
+        .home-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .home-section.active {
+            display: block;
+        }
+
+        .home-title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .home-description {
+            font-size: 1.3rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .team-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-stat-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid #333;
+            text-align: center;
+        }
+
+        .team-stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .team-stat-label {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .player-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .home-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">⚽ SANTOS FC</div>
+        <div class="subtitle">Vila Belmiro - Desde 1912</div>
+    </header>
+
+    <nav class="navigation">
+        <div class="nav-container">
+            <button class="nav-btn" onclick="showSection('home')">Início</button>
+            <button class="nav-btn" onclick="showSection('gabriel-brazao')">Gabriel Brazão</button>
+            <button class="nav-btn" onclick="showSection('luan-peres')">Luan Peres</button>
+            <button class="nav-btn" onclick="showSection('adonis-frias')">Adonis Frías</button>
+            <button class="nav-btn" onclick="showSection('mayke')">Mayke</button>
+            <button class="nav-btn" onclick="showSection('joao-victor')">João Victor</button>
+            <button class="nav-btn" onclick="showSection('william-arao')">William Arão</button>
+            <button class="nav-btn" onclick="showSection('ze-rafael')">Zé Rafael</button>
+            <button class="nav-btn" onclick="showSection('bontempo')">Bontempo</button>
+            <button class="nav-btn" onclick="showSection('rolheiser')">Rolheiser</button>
+            <button class="nav-btn" onclick="showSection('neymar')">Neymar</button>
+            <button class="nav-btn" onclick="showSection('guilherme')">Guilherme</button>
+            <button class="nav-btn" onclick="showSection('lautaro-dias')">Lautaro Dias</button>
+            <button class="nav-btn" onclick="showSection('historia')">📚 História do Clube</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Seção Inicial -->
+        <section id="home" class="player-section home-section active">
+            <h1 class="home-title">Santos Futebol Clube</h1>
+            <p class="home-description">
+                O Santos FC é um dos clubes mais tradicionais do futebol brasileiro e mundial. 
+                Berço de grandes craques como Pelé, Neymar e muitos outros, o Peixe está de volta 
+                à Série A em 2025 com um elenco renovado e cheio de qualidade técnica.
+            </p>
+            
+            <div class="team-stats">
+                <div class="team-stat-card">
+                    <div class="team-stat-number">3</div>
+                    <div class="team-stat-label">Mundiais</div>
+                </div>
+                <div class="team-stat-card">
+                    <div class="team-stat-number">8</div>
+                    <div class="team-stat-label">Brasileirões</div>
+                </div>
+                <div class="team-stat-card">
+                    <div class="team-stat-number">22</div>
+                    <div class="team-stat-label">Paulistões</div>
+                </div>
+                <div class="team-stat-card">
+                    <div class="team-stat-number">1912</div>
+                    <div class="team-stat-label">Fundação</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gabriel Brazão - Goleiro -->
+        <section id="gabriel-brazao" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🥅</div>
+                <div class="player-info">
+                    <h2 class="player-name">Gabriel Brazão</h2>
+                    <div class="player-position">Goleiro</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">24 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,90m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">88kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Jogos sem sofrer gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">67</div>
+                        <div class="stat-label">Defesas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">82%</div>
+                        <div class="stat-label">Taxa de defesas</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Adonis Frías - Zagueiro -->
+        <section id="adonis-frias" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🛡️</div>
+                <div class="player-info">
+                    <h2 class="player-name">Adonis Frías</h2>
+                    <div class="player-position">Zagueiro</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">31 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇦🇷 Argentino</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,85m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">80kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">Desarmes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">88%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Luan Peres - Zagueiro -->
+        <section id="luan-peres" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🛡️</div>
+                <div class="player-info">
+                    <h2 class="player-name">Luan Peres</h2>
+                    <div class="player-position">Zagueiro</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">30 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,83m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">79kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">87</div>
+                        <div class="stat-label">Desarmes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">93%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mayke - Lateral -->
+        <section id="mayke" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">⚡</div>
+                <div class="player-info">
+                    <h2 class="player-name">Mayke</h2>
+                    <div class="player-position">Lateral-direito</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">32 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,76m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">73kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">38</div>
+                        <div class="stat-label">Cruzamentos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- João Victor de Souza Menezes - Meio-campo -->
+        <section id="joao-victor" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">⚙️</div>
+                <div class="player-info">
+                    <h2 class="player-name">João Victor de Souza Menezes</h2>
+                    <div class="player-position">Meio-campo</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">26 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,78m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">73kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">20</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- William Arão - Meio-campo -->
+        <section id="william-arao" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🎯</div>
+                <div class="player-info">
+                    <h2 class="player-name">William Arão</h2>
+                    <div class="player-position">Meio-campo defensivo</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">32 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,82m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">78kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">22</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zé Rafael - Meio-campo -->
+        <section id="ze-rafael" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🎯</div>
+                <div class="player-info">
+                    <h2 class="player-name">Zé Rafael</h2>
+                    <div class="player-position">Meio-campo</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">31 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,74m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">70kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">84%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bontempo - Lateral -->
+        <section id="bontempo" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">⚡</div>
+                <div class="player-info">
+                    <h2 class="player-name">Bontempo</h2>
+                    <div class="player-position">Lateral-esquerdo</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">24 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,79m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">74kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">82%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rolheiser - Meio-campo -->
+        <section id="rolheiser" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🎯</div>
+                <div class="player-info">
+                    <h2 class="player-name">Rolheiser</h2>
+                    <div class="player-position">Meio-campo ofensivo</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">25 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇦🇷 Argentino</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,76m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">72kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">17</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">87%</div>
+                        <div class="stat-label">Passes certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neymar - Atacante -->
+        <section id="neymar" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">⭐</div>
+                <div class="player-info">
+                    <h2 class="player-name">Neymar Jr.</h2>
+                    <div class="player-position">Ponta-esquerda / Meia-atacante</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">33 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,75m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">68kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">45</div>
+                        <div class="stat-label">Dribles certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guilherme - Atacante -->
+        <section id="guilherme" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">⚽</div>
+                <div class="player-info">
+                    <h2 class="player-name">Guilherme</h2>
+                    <div class="player-position">Centroavante</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">28 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇧🇷 Brasileiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,85m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">79kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">21</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">14</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">58</div>
+                        <div class="stat-label">Finalizações</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lautaro Dias - Atacante -->
+        <section id="lautaro-dias" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">🚀</div>
+                <div class="player-info">
+                    <h2 class="player-name">Lautaro Dias</h2>
+                    <div class="player-position">Ponta-direita</div>
+                </div>
+            </div>
+            
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Idade</div>
+                    <div class="detail-value">22 anos</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Nacionalidade</div>
+                    <div class="detail-value">🇺🇾 Uruguaio</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Altura</div>
+                    <div class="detail-value">1,78m</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Peso</div>
+                    <div class="detail-value">73kg</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Estatísticas da Temporada 2025</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">16</div>
+                        <div class="stat-label">Jogos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Gols</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Assistências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">28</div>
+                        <div class="stat-label">Dribles certos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- História do Santos FC -->
+        <section id="historia" class="player-section">
+            <div class="player-header">
+                <div class="player-avatar">📚</div>
+                <div class="player-info">
+                    <h2 class="player-name">História do Santos FC</h2>
+                    <div class="player-position">Desde 1912 - Mais de 110 anos de tradição</div>
+                </div>
+            </div>
+            
+            <div style="background: rgba(255, 215, 0, 0.1); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                <h3 style="color: #FFD700; font-size: 1.8rem; margin-bottom: 1rem; text-align: center;">A Fundação</h3>
+                <p style="color: #cccccc; line-height: 1.6; font-size: 1.1rem; text-align: center;">
+                    O Santos Futebol Clube foi fundado em 14 de abril de 1912, por três esportistas santistas: 
+                    Raimundo Marques, Mário Ferraz de Campos e Argemiro de Souza Júnior. O clube nasceu com o 
+                    objetivo de representar a cidade de Santos no cenário futebolístico nacional.
+                </p>
+            </div>
+
+            <div class="player-details">
+                <div class="detail-card">
+                    <div class="detail-label">Fundação</div>
+                    <div class="detail-value">14 de abril de 1912</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Estádio</div>
+                    <div class="detail-value">Vila Belmiro</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Capacidade</div>
+                    <div class="detail-value">16.068 lugares</div>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-label">Apelido</div>
+                    <div class="detail-value">Peixe</div>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <h3 class="stats-title">Principais Conquistas</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Mundiais de Clubes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Brasileirões</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Libertadores</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">22</div>
+                        <div class="stat-label">Paulistões</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(0, 0, 0, 0.3); padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+                <h4 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">Eras Douradas</h4>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="color: #FFA500; font-size: 1.3rem; margin-bottom: 1rem;">👑 Era Pelé (1956-1974)</h5>
+                    <p style="color: #cccccc; line-height: 1.6;">
+                        A chegada de Pelé em 1956 marcou o início da era mais gloriosa do Santos. Com o Rei do Futebol, 
+                        o clube conquistou 2 Mundiais (1962 e 1963), 2 Libertadores (1962 e 1963), 6 Brasileirões e 
+                        11 Paulistões. Pelé marcou 1.363 gols em 1.116 jogos pelo Santos.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h5 style="color: #FFA500; font-size: 1.3rem; margin-bottom: 1rem;">⭐ Era Neymar (2009-2013)</h5>
+                    <p style="color: #cccccc; line-height: 1.6;">
+                        Neymar Jr. trouxe uma nova era de glórias ao Santos. O jovem craque conquistou a Libertadores 
+                        de 2011, 3 Paulistões e encantou o mundo com seu futebol arte, sendo considerado o sucessor 
+                        natural de Pelé na Vila Belmiro.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 style="color: #FFA500; font-size: 1.3rem; margin-bottom: 1rem;">🏆 Outros Grandes Momentos</h5>
+                    <p style="color: #cccccc; line-height: 1.6;">
+                        O Santos também viveu grandes momentos com jogadores como Robinho, Diego, Elano, e mais 
+                        recentemente com a geração que conquistou o Paulistão de 2015 e 2016. O clube sempre foi 
+                        conhecido por revelar grandes talentos para o futebol mundial.
+                    </p>
+                </div>
+            </div>
+
+            <div style="background: rgba(255, 215, 0, 0.1); padding: 2rem; border-radius: 15px; margin-top: 2rem; text-align: center;">
+                <h4 style="color: #FFD700; font-size: 1.5rem; margin-bottom: 1rem;">O Futuro</h4>
+                <p style="color: #cccccc; line-height: 1.6; font-size: 1.1rem;">
+                    Após o retorno à Série A em 2024, o Santos FC inicia uma nova era em 2025. Com um elenco 
+                    renovado e a volta de Neymar Jr., o Peixe busca reconquistar seu lugar entre os grandes 
+                    do futebol brasileiro e mundial, mantendo viva a tradição de mais de 110 anos de história.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Esconder todas as seções
+            const sections = document.querySelectorAll('.player-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Mostrar a seção selecionada
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Scroll suave para o topo
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mostrar seção inicial por padrão
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98a5cf30101c1ab7',t:'MTc1OTc2MDUzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
